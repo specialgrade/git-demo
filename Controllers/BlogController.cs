@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using git_demo.Models;
 
-namespace Assessment5.Controllers
+namespace git_demo.Controllers
 {
     public class BlogController : Controller
     {

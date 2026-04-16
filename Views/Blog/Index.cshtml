@@ -1,0 +1,27 @@
+@model IEnumerable<Post>
+
+@{
+    ViewData["Title"] = "Blog Posts";
+}
+
+<h1>Blog Posts</h1>
+
+@if (!Model.Any())
+{
+    <p>No posts found.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var post in Model)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>@post.Title</strong><br />
+                    <small>by @post.Author</small>
+                </div>
+                <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id" class="btn btn-sm btn-primary">View</a>
+            </li>
+        }
+    </ul>
+}

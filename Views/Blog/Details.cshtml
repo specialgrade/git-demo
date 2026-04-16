@@ -1,0 +1,15 @@
+@model Post
+
+@{
+    ViewData["Title"] = "Post Details";
+}
+
+<h1>@Model.Title</h1>
+
+<p class="text-muted">By @Model.Author</p>
+
+<div class="mb-3">
+    @Model.Content
+</div>
+
+<a asp-controller="Blog" asp-action="Index" class="btn btn-secondary">Back to list</a>
