@@ -1,0 +1,229 @@
+@model git_demo.Models.Post
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+    :root {
+        --ink: #1a1a2e;
+        --muted: #6b6b80;
+        --accent: #c0392b;
+        --rule: #e2e2ea;
+        --page-bg: #f5f5f0;
+        --card-bg: #ffffff;
+    }
+
+    .detail-page {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--page-bg);
+        min-height: 100vh;
+        padding: 3rem 1.5rem 6rem;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        margin-bottom: 2.5rem;
+        transition: color 0.15s ease;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+    }
+
+    .back-link:hover { color: var(--ink); }
+
+    /* ── Article card ── */
+    .post-detail {
+        max-width: 700px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        border: 1px solid var(--rule);
+        border-radius: 6px;
+        overflow: hidden;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Header band ── */
+    .post-header {
+        padding: 2.5rem 2.5rem 2rem;
+        border-bottom: 1px solid var(--rule);
+        position: relative;
+    }
+
+    .post-header::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--accent);
+    }
+
+    .post-label {
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+    }
+
+    .post-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.25;
+        letter-spacing: -0.3px;
+        margin: 0 0 1.5rem;
+    }
+
+    /* ── Author chip ── */
+    .post-author-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .author-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .author-info { line-height: 1.2; }
+
+    .author-name {
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: var(--ink);
+    }
+
+    .author-role {
+        font-size: 0.73rem;
+        color: var(--muted);
+    }
+
+    /* ── Content body ── */
+    .post-body {
+        padding: 2.25rem 2.5rem;
+        font-size: 1rem;
+        line-height: 1.85;
+        color: #2d2d3a;
+    }
+
+    .post-body p:first-child::first-letter {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.2rem;
+        font-weight: 700;
+        float: left;
+        line-height: 0.78;
+        margin: 0.08em 0.1em 0 0;
+        color: var(--accent);
+    }
+
+    .post-body p {
+        margin: 0 0 1.2em;
+    }
+
+    /* ── Footer ── */
+    .post-footer {
+        padding: 1.25rem 2.5rem;
+        border-top: 1px solid var(--rule);
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+        border: 1.5px solid var(--ink);
+        padding: 0.5rem 1rem;
+        border-radius: 3px;
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-back:hover { background: var(--ink); color: #fff; }
+
+    @@media (max-width: 540px) {
+        .post-header, .post-body, .post-footer {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+    }
+</style>
+
+<div class="detail-page">
+
+    <a asp-action="Index" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M10 7H4M6 4L3 7l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Posts
+    </a>
+
+    <article class="post-detail">
+
+        <header class="post-header">
+            <div class="post-label">Post</div>
+            <h1 class="post-title">@Model.Title</h1>
+
+            <div class="post-author-row">
+                <div class="author-avatar">@Model.Author.Substring(0, 1).ToUpper()</div>
+                <div class="author-info">
+                    <div class="author-name">@Model.Author</div>
+                    <div class="author-role">Author</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="post-body">
+            @foreach (var paragraph in Model.Content.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+            {
+                <p>@paragraph</p>
+            }
+        </section>
+
+        <footer class="post-footer">
+            <a asp-action="Index" class="btn-back">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M8 6H4M5.5 3.5L3 6l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                All Posts
+            </a>
+        </footer>
+
+    </article>
+</div>
