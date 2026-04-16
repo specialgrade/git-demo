@@ -9,8 +9,8 @@ namespace git_demo.Controllers
     {
         private static List<Post> posts = new List<Post>
         {
-            new Post { Id = 1, Title = "First Post", Content = "Ikaw yung nag ShOpLiFfTt", Author = "Alyssa" },
-            new Post { Id = 2, Title = "Second Post", Content = "Six Sevennnn", Author = "Alyssa" }
+            new Post { Id = 1, Title = "First Post", Content = "Hello, world!", Author = "Alyssa" },
+            new Post { Id = 2, Title = "Second Post", Content = "This post introduces the basic concepts of web development, including front-end and back-end technologies.", Author = "Alyssa" }
         };
 
         public IActionResult Index()
